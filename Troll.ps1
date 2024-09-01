@@ -47,7 +47,13 @@ public class Wallpaper {
     $SPIF_SENDCHANGE = 2
 
     # Set the wallpaper
-    [Wallpaper]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $imagePath, $SPIF_UPDATEINIFILE -bor $SPIF_SENDCHANGE)
+    $result = [Wallpaper]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $imagePath, $SPIF_UPDATEINIFILE -bor $SPIF_SENDCHANGE)
+
+    if ($result -eq 0) {
+        Write-Output "Failed to set wallpaper to $imagePath"
+    } else {
+        Write-Output "Wallpaper set to $imagePath"
+    }
 }
 
 # Main loop to switch wallpapers
