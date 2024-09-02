@@ -28,5 +28,5 @@ while ($true) {
     }
 
     # Wait for 30 seconds before repeating
-    Start-Sleep -Seconds 30
+    Start-Sleep -Seconds 900
 }
