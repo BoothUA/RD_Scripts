@@ -94,8 +94,8 @@ function Download-ImageFromGitHub {
 
 # Function to silently download the raw WAV file from GitHub
 function Download-AudioFromGitHub {
-    $audioUrl = "https://raw.githubusercontent.com/BoothUA/RD_Scripts/a927af074cca9c80540f6769fc159d101c929661/rickroll.wav"
-    $downloadPath = "$env:TEMP\rickroll.wav"
+    $audioUrl = "https://raw.githubusercontent.com/BoothUA/RD_Scripts/a927af074cca9c80540f6769fc159d101c929661/Nothing.wav"
+    $downloadPath = "$env:TEMP\Nothing.wav"
 
     try {
         Invoke-WebRequest -Uri $audioUrl -OutFile $downloadPath -UseBasicParsing
